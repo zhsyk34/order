@@ -1,0 +1,100 @@
+/*main data*/
+.info {
+	display: inline-block;
+	width: 260px;
+	margin: 10px;
+}
+
+.wrap {
+	height: 230px;
+	width: 100%;
+	padding: 8px;
+	background: #40352f;
+}
+
+.wrap img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	border: 2px solid #fff;
+	border-radius: 3px;
+}
+
+.desc {
+	position: relative;
+	bottom: 30px;
+	height: 30px;
+	background: rgba(100, 100, 100, .75);
+	clear: both;
+}
+
+.name, .price {
+	position: absolute;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	font-size: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.name {
+	padding-left: 12px;
+	color: #fff;
+	width: 60%;
+	left: 0;
+}
+
+.price {
+	text-align: right;
+	padding-right: 18px;
+	color: #ff0;
+	width: 40%;
+	right: 0;
+}
+
+.operation {
+	height: 30px;
+	padding: 5px 10px;
+}
+
+.operation button, .operation label {
+	padding: 2px 5px;
+	margin-right: 20px;
+}
+
+/*material*/
+#material-dialog td {
+	padding: 3px;
+}
+
+#material-dialog img {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+/*editor*/
+#show {
+	vertical-align: top;
+	width: 280px;
+}
+
+#taste ul:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+#taste ul{
+	margin-bottom: 6px;
+}
+
+#taste li {
+	float: left;
+	width: 60px;
+	height:24px;
+	overflow: hidden;
+	margin: 3px 0;
+}

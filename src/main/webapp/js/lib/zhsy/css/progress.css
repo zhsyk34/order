@@ -1,0 +1,25 @@
+.progress {
+	position: relative;
+	border: 1px solid #95b8e7;
+	border-radius: 5px;
+	background: #ffffe0;
+}
+
+.progress-completed {
+	position: absolute;
+	height: 100%;
+	background: #7d9edb;
+}
+
+.progress-tip {
+	display: inline-block;
+	position: absolute;
+	width: 24px;
+	height: 12px;
+	margin-left: -12px;
+	line-height: 12px;
+	text-align: center;
+	font-size: 14px;
+	white-space: nowrap;
+	font-family: Arial;
+}

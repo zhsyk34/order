@@ -1,0 +1,113 @@
+.mask {
+	position: fixed;
+	z-index: 2015;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: none;
+	overflow: auto;
+	background: rgba(0, 0, 0, 0.25)
+}
+
+.blur {
+	background: rgba(0, 0, 0, 0.1);
+	-webkit-filter: blur(4px);
+	filter: blur(4px)
+}
+
+.modal {
+	position: absolute;
+	z-index: 2016;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background: transparent;
+	background-clip: padding-box;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	-moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+}
+
+.modal .modal-header {
+	min-height: 16px;
+	padding: 10px 15px;
+	color: #fff;
+	background: #0f4456;
+	-moz-border-radius-topleft: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px
+}
+
+.modal .modal-header .modal-title {
+	line-height: 1.5
+}
+
+.modal .modal-header .modal-close {
+	font-family: Arial;
+	font-size: 21px;
+	font-weight: 400;
+	line-height: 1;
+	position: absolute;
+	top: 8px;
+	right: 5px;
+	cursor: pointer;
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+	opacity: 0.5;
+	-moz-transition: opacity 0.5s;
+	-o-transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s
+}
+
+.modal .modal-header .modal-close:after {
+	content: '\00d7'
+}
+
+.modal .modal-header .modal-close:hover, .modal .modal-header .modal-close:focus {
+	filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+	opacity: 1
+}
+
+.modal .modal-content {
+	background: #fff
+}
+
+.modal .modal-footer {
+	padding: 10px 5px;
+	text-align: center;
+	background: #fff;
+	-moz-border-radius-bottomleft: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	-moz-border-radius-bottomright: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	border-bottom-right-radius: 6px
+}
+
+.modal .modal-footer button {
+	margin: 0 16px
+}
+
+.modal-confirm .modal-content, .modal-alert .modal-content {
+	font-size: 14px;
+	line-height: 1.5;
+	padding: 30px 20px;
+	color: #2c0706;
+	-moz-border-radius-topleft: 6px;
+	-webkit-border-top-left-radius: 6px;
+	border-top-left-radius: 6px;
+	-moz-border-radius-topright: 6px;
+	-webkit-border-top-right-radius: 6px;
+	border-top-right-radius: 6px
+}
+
+.modal-confirm .modal-footer, .modal-alert .modal-footer {
+	text-align: right
+}

@@ -1,0 +1,31 @@
+.color div, .background div {
+	width: 25px;
+	height: 25px;
+	margin: 0 auto;
+}
+
+.table-edit td {
+	padding: 8px 20px;
+	height: 60px;
+}
+
+#wrap {
+	width: 590px;
+	height: 135px;
+	border: 1px solid #ddd;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.direction {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#preview {
+	position: relative;
+	height: 135px;
+	line-height: 135px;
+	overflow: hidden;
+	white-space: nowrap;
+}

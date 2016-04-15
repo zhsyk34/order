@@ -1,0 +1,32 @@
+footer {
+	padding: 10px 5px;
+	text-align: center;
+}
+
+footer button {
+	margin: 0 20px;
+}
+
+input {
+	/*text-align: center;*/
+}
+
+.table th, .table td {
+	height: 47px;
+	padding: 5px 10px;
+	font-size: 14px;
+}
+
+td label {
+	display: inline-block;
+	width: 70px;
+}
+
+.accessory {
+	margin: 8px 0;
+}
+
+#takeAway {
+	height: 26px;
+	padding: 3px 5px;
+}

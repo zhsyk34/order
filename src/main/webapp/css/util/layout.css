@@ -1,0 +1,102 @@
+body {
+	padding: 10px;
+}
+
+/*header*/
+header h3 {
+	height: 45px;
+	line-height: 45px;
+	color: #fff;
+	border-radius: 10px 10px 0 0;
+	background: #056BA0;
+	font-size: 16px;
+	font-weight: 700;
+	text-indent: 2em;
+}
+
+header nav {
+	border: 1px solid #c9c9c9;
+	padding: 0 10px;
+	width: 100%;
+}
+
+nav>div {
+	margin: 8px 0;
+}
+
+nav>table td {
+	padding: 4px 8px;
+}
+
+#find {
+	margin-left: 5px;
+}
+
+#add {
+	margin-left: 50px;
+}
+
+#check-ctrl {
+	margin-left: 200px;
+}
+
+nav>div>#check-ctrl {
+	margin: 0;
+}
+
+#check-ctrl li {
+	margin-right: 10px;
+}
+
+/*content*/
+.main {
+	border: 1px solid #c9c9c9;
+	border-top: none;
+	padding: 5px;
+}
+
+.update, .del {
+	margin: 0 25px;
+}
+/*footer*/
+#page {
+	float: right;
+	padding: 5px 2px;
+}
+
+select, select option {
+	color: #555;
+	height: 30px;
+	line-height: 1;
+	padding: 3px 5px;
+}
+
+/*dialog*/
+.dialog-nav {
+	padding: 10px;
+}
+
+.dialog-main {
+	padding: 5px;
+	border-top: 1px solid #c9c9c9;
+	border-bottom: 1px solid #c9c9c9;
+}
+
+.dialog-page {
+	padding: 5px 3px;
+}
+
+.dialog-page:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+.dialog-page>div {
+	float: right;
+}
+
+/*table editor*/
+.table-edit td {
+	height: 40px;
+}

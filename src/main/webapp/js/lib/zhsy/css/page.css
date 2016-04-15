@@ -1,0 +1,105 @@
+.page {
+	font-size: 14px;
+	font-family: KaiTi, SimSun, serif, Arial;
+}
+
+.page td {
+	height: 32px;
+	vertical-align: middle;
+	text-align: center;
+	padding: 3px;
+}
+
+.page .first, .page .previous, .page .next, .page .last {
+	cursor: pointer;
+	color: #197ab9;
+}
+
+.page .disabled {
+	color: #808080;
+	cursor: default;
+}
+
+.page .separator:after {
+	content: '';
+	height: 28px;
+	border-left: 1px solid #7F9DB9;
+	border-right: 1px solid #fff;
+}
+
+.page input, .page select {
+	display: inline-block;
+	border: 1px solid #66afe9;
+	outline: none;
+	font: 400 14px/1 Arial;
+	margin: 0 3px;
+	padding:2px 5px;
+}
+
+.page input {
+	width: 40px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+}
+
+.page select {
+	height: 24px;
+	width: 50px;
+}
+
+.page span {
+	display: inline-block;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 2px;
+}
+/*font*/
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('awesome/font/fontawesome-webfont.eot?v=3.2.1');
+	src: url('awesome/font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('awesome/font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('awesome/font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'), url('awesome/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: inherit;
+	-webkit-font-smoothing: antialiased;
+	*margin-right: .3em;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	text-decoration: inherit;
+	display: inline-block;
+	speak: none;
+	padding: 0 1px;
+}
+/**/
+.icon-forward:before {
+	content: "\f04e";
+}
+
+.icon-fast-forward:before {
+	content: "\f050";
+}
+
+.icon-step-forward:before {
+	content: "\f051";
+}
+
+.icon-step-backward:before {
+	content: "\f048";
+}
+
+.icon-fast-backward:before {
+	content: "\f049";
+}
+
+.icon-backward:before {
+	content: "\f04a";
+}

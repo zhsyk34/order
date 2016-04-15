@@ -1,0 +1,50 @@
+.online {
+	color: #00f;
+}
+
+.offline {
+	color: #f00;
+}
+
+.info {
+	display: inline-block;
+	border: 1px solid #84849E;
+	margin: 8px;
+	background: #000;
+}
+
+.wrap {
+	text-align: center;
+	width: 280px;
+	height: 300px;
+	width: 280px;
+}
+
+.empty {
+	color: #f00;
+	background: #fff;
+	line-height: 300px;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.wrap img {
+	/*
+	width:200px;
+	height: 100%;
+	*/
+}
+
+.description {
+	background: #4F6D0B;
+}
+
+.description>div {
+	padding: 6px 5px;
+	color: #fff;
+	font-weight: 600;
+}
+
+.description .online {
+	
+}

@@ -1,0 +1,14 @@
+nav>div>#check-ctrl {
+	margin-left: 100px;
+}
+
+#percent+span {
+	padding: 0 8px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #03f;
+}
+
+#percent {
+	width: 145px;
+}

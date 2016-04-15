@@ -1,0 +1,64 @@
+#boottime, #boot, #start {
+	margin-left: 15px;
+}
+
+.boottime, .shuttime {
+	height: 60px;
+}
+
+.boottime>div, .shuttime>div {
+	height: 20px;
+	line-height: 20px;
+}
+
+.enable {
+	color: #219321;
+}
+
+.disable {
+	color: #f00;
+}
+
+#teamViewer {
+	height: 26px;
+}
+
+input.boots, input.shuts {
+	width: 100px;
+	height: 26px;
+}
+
+.times td {
+	text-align: center;
+}
+
+.text[readonly] {
+	cursor: pointer;
+	border-color: #ccc;
+	background-color: #fff;
+}
+
+#seat-terminal {
+	color: #0053ff;
+	padding: 8px;
+	font-size: 15px;
+}
+
+#seat li {
+	float: left;
+	width: 100px;
+	overflow: hidden;
+	white-space: nowrap;
+	margin: 3px 2px 10px 0;
+	text-align: left;
+	width: 100px;
+}
+
+.show {
+	display:inline-block;
+	width: 120px;
+}
+
+.dialog-main td, .dialog-main th {
+	height: 40px;
+}

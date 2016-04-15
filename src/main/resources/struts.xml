@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.devMode" value="true" />
+
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="message" />
+
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 上传文件大小限制设置 -->
+	<constant name="struts.multipart.maxSize" value="-1" />
+	<!-- 设置上传文件的临时目录 "/"表示项目的硬盘根目录如D: -->
+	<constant name="struts.multipart.saveDir" value="/temp" />
+
+	<!-- 返回json数据 -->
+	<package name="" extends="json-default" namespace="/json">
+		<!-- 拦截器 -->
+		<interceptors>
+			<interceptor name="oauth" class="com.baiyi.order.web.OauthInterceptor"></interceptor>
+			<interceptor-stack name="control">
+				<interceptor-ref name="oauth"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 启用 -->
+		<default-interceptor-ref name="control"></default-interceptor-ref>
+
+		<global-results>
+			<result name="logon">/jsp/logon.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+		</global-results>
+
+		<action name="*_*" class="com.baiyi.order.action.{1}Action" method="{2}">
+			<result type="json">
+				<param name="root">jsonData</param>
+			</result>
+		</action>
+	</package>
+</struts>

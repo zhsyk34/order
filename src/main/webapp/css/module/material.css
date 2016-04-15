@@ -1,0 +1,79 @@
+#data {
+	width: 100%;
+	padding: 5px;
+}
+
+#data:after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+.info {
+	float: left;
+	padding: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.info:hover {
+	background: #eee;
+}
+
+.info h4 {
+	height: 16px;
+	line-height: 1;
+	color: #358;
+}
+
+.info img {
+	display: block;
+	width: 136px;
+	height: 140px;
+	margin: 3px;
+	border: 1px solid #ededed;
+}
+
+.info .operation {
+	text-align: left;
+}
+
+.operation button {
+	margin: 0 5px;
+	line-height: 1;
+}
+/*upload*/
+#upload th .btn {
+	margin-left: 5px;
+}
+
+.file {
+	position: relative;
+}
+
+.path-info {
+	text-indent: 8px;
+	width: 70%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#upload input[type="file"] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+/*preview*/
+#preview {
+	width: 500px;
+	height: 400px;
+}
+
+#preview img, #preview object {
+	width: 100%;
+	height: 100%;
+}

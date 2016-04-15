@@ -1,0 +1,36 @@
+.slider {
+	position: relative;
+	border: 1px solid #95b8e7;
+	border-radius: 5px;
+	background: #ffffe0;
+}
+
+.slider-disabled {
+	opacity: 0.5;
+}
+
+.slider-completed {
+	position: absolute;
+	height: 100%;
+	background: #7d9edb;
+}
+
+.slider-handle {
+	position: absolute;
+	top: 50%;
+	background: #e6e6fa;
+	border: 1px solid #a5b6c8;
+}
+
+.slider-tip {
+	display: inline-block;
+	position: absolute;
+	width: 24px;
+	height: 12px;
+	margin-left: -12px;
+	line-height: 12px;
+	text-align: center;
+	font-size: 14px;
+	white-space: nowrap;
+	font-family: Arial;
+}

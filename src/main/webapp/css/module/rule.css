@@ -1,0 +1,22 @@
+.prefix, .length, .start {
+	display: inline-block;
+	color: #33f;
+	text-align: center;
+	font-weight: 600;
+}
+
+.prefix {
+	width: 50px;
+}
+
+.length {
+	width: 20px;
+}
+
+.start {
+	width: 40px;
+}
+
+.switch, .update, .del {
+	margin: 0 15px;
+}
