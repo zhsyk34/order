@@ -1,6 +1,5 @@
 package com.baiyi.order.action;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +19,13 @@ import com.baiyi.order.model.Material;
 import com.baiyi.order.model.OrderRule;
 import com.baiyi.order.model.Refund;
 import com.baiyi.order.model.Seat;
+import com.baiyi.order.model.Style;
 import com.baiyi.order.model.Taste;
 import com.baiyi.order.model.Template;
 import com.baiyi.order.model.Terminal;
 import com.baiyi.order.model.TerminalTemplate;
 import com.baiyi.order.model.TerminalTime;
+import com.baiyi.order.model.Type;
 import com.baiyi.order.util.EnumList.ActivityTypeEnum;
 import com.baiyi.order.util.EnumList.RefundReasonEnum;
 import com.baiyi.order.util.EnumList.RefundTypeEnum;
@@ -51,9 +52,8 @@ public class ServiceAction extends CommonsAction {
 		return SUCCESS;
 	}
 
-	// 下载模板:terminalId TODO
+	// 下载模板 TODO
 	public String downTemplate() {
-		Map<String, Object> data = new HashMap<>();
 		Terminal terminal = terminalService.find(terminalId);
 		if (terminal == null) {
 			jsonData.put(result, Feedback.ERROR.toString());
@@ -69,50 +69,64 @@ public class ServiceAction extends CommonsAction {
 		TerminalTemplate terminalTemplate = terminalTemplates.get(0);
 		TemplateVO tv = templateService.findVO(terminalTemplate.getTemplateId());
 		// base
-		data.put("id", tv.getId());
-		data.put("type", tv.getType().name().toLowerCase());
-		data.put("size", tv.getRowcount() + "x" + tv.getColcount());
+		jsonData.put("id", tv.getId());
+		jsonData.put("type", tv.getType().name().toLowerCase());
+		jsonData.put("size", tv.getRowcount() + "x" + tv.getColcount());
 
 		// logo
 		Material logo = tv.getLogo();
-		data.put("titleLogo", logo == null ? "default" : logo.getPath());
+		jsonData.put("titleLogo", logo == null ? "default" : logo.getPath());
 
 		// marquee
 		List<Marquee> marqueeList = tv.getMarqueeList();
 		if (CollectionUtils.isNotEmpty(marqueeList)) {
-			data.put("isMarquee", true);
-			for (Marquee marquee : marqueeList) {// TODO
+			jsonData.put("isMarquee", true);
+			List<Map<String, Object>> marquees = new ArrayList<>();
+			for (Marquee marquee : marqueeList) {
+				Map<String, Object> each = new HashMap<>();
+				each.put("content", marquee.getContent());
+				each.put("size", marquee.getSize());
+				each.put("speed", marquee.getSpeed());
+				each.put("direction", marquee.getDirection().toString().toLowerCase());
+				each.put("color", marquee.getColor());
+				each.put("font", marquee.getFont());
+				each.put("background", marquee.getBackground());
+
+				marquees.add(each);
 			}
+			jsonData.put("marquees", marquees);
 		} else {
-			data.put("isMarquee", false);
+			jsonData.put("isMarquee", false);
 		}
 
 		TemplateContentEnum contentEnum = tv.getContent();
-		data.put("banner", "default");
+		jsonData.put("banner", "default");
 		// number video picture
 		switch (contentEnum) {
 		case NUMBER:
-			data.put("showCtrl", "numberCtrl");
+			jsonData.put("showCtrl", "numberCtrl");
 			Material number = tv.getNumber();
-			data.put("banner", number.getPath());
+			jsonData.put("banner", number.getPath());
 			break;
 		case PICTURE:
-			data.put("showCtrl", "pictureCtrl");
+			jsonData.put("showCtrl", "pictureCtrl");
 			List<Material> pictureList = tv.getPictureList();
 			List<String> pictures = new ArrayList<>();
 			for (Material material : pictureList) {
 				pictures.add(material.getPath());
 			}
-			data.put("picture", "pictures");
+			jsonData.put("picture", "pictures");
+			jsonData.put("picTime", tv.getInterlude());
+			jsonData.put("effect", tv.getEffect());// TODO 大小写
 			break;
 		case VIDEO:
-			data.put("showCtrl", "videoCtrl");
+			jsonData.put("showCtrl", "videoCtrl");
 			List<Material> videoList = tv.getVideoList();
 			List<String> videos = new ArrayList<>();
 			for (Material material : videoList) {
 				videos.add(material.getPath());
 			}
-			data.put("video", "videos");
+			jsonData.put("video", "videos");
 			break;
 		}
 
@@ -126,6 +140,7 @@ public class ServiceAction extends CommonsAction {
 		Map<Integer, Integer> tasteMap = new LinkedHashMap<Integer, Integer>();
 		List<Map<String, Object>> tasteArray = new ArrayList<>();
 		for (FoodVO fv : foodList) {
+			fv = foodService.findVO(fv.getId());// TODO
 			Map<String, Object> cake = new HashMap<>();
 			cake.put("id", fv.getId());
 			cake.put("name", fv.getName());
@@ -133,21 +148,30 @@ public class ServiceAction extends CommonsAction {
 			cake.put("alias", fv.getNickname());
 
 			cake.put("price", fv.getPrice());
-			cake.put("necessary", fv.getStyleList());// TODO
+
+			List<Integer> styles = new ArrayList<>();
+			List<Style> styleList = fv.getStyleList();
+			if (CollectionUtils.isNotEmpty(styleList)) {
+				for (Style style : styleList) {
+					styles.add(style.getId());
+				}
+			}
+			cake.put("necessary", styles);
+
 			cake.put("introduce", fv.getIntroduction());
 			cake.put("image", fv.getPath());
 
 			// type
 			Integer typeId = fv.getTypeId();
+			cake.put("type", typeId);
 			if (typeMap.containsKey(typeId)) {
 				typeMap.put(typeId, typeMap.get(typeId) + 1);
 			} else {
 				typeMap.put(typeId, 1);
 			}
-			cake.put("type", typeId);
 
 			// taste
-			List<Taste> tasteList = fv.getTasteList();// TODO
+			List<Taste> tasteList = fv.getTasteList();
 			List<Integer> tastes = new ArrayList<>();
 			if (CollectionUtils.isNotEmpty(tasteList)) {
 				for (Taste taste : tasteList) {
@@ -157,6 +181,13 @@ public class ServiceAction extends CommonsAction {
 						tasteMap.put(tasteId, tasteMap.get(tasteId) + 1);
 					} else {
 						tasteMap.put(tasteId, 1);
+						Map<String, Object> each = new HashMap<>();
+						each.put("id", tasteId);
+						each.put("name", taste.getName());
+						each.put("type", taste.getStyleId());
+						each.put("price", taste.getPrice());
+
+						tasteArray.add(each);
 					}
 				}
 			}
@@ -164,10 +195,21 @@ public class ServiceAction extends CommonsAction {
 			cakeArray.add(cake);
 		}
 
-		data.put("cakeArray", cakeArray);
-		data.put("typeArray", typeArray);// TODO
-		data.put("tasteArray", tasteArray);// TODO
-		jsonData.put(result, data);
+		if (!typeMap.isEmpty()) {
+			for (Integer typeId : typeMap.keySet()) {
+				Type type = typeService.find(typeId);
+				Map<String, Object> each = new HashMap<>();
+				each.put("id", type.getId());
+				each.put("name", type.getName());
+
+				each.put("number", typeMap.get(typeId));
+				typeArray.add(each);
+			}
+		}
+
+		jsonData.put("cakeArray", cakeArray);
+		jsonData.put("typeArray", typeArray);
+		jsonData.put("tasteArray", tasteArray);
 		return SUCCESS;
 	}
 
@@ -197,27 +239,49 @@ public class ServiceAction extends CommonsAction {
 		return SUCCESS;
 	}
 
-	// 获取系统配置信息
+	// 获取系统配置信息:terminalId
 	public String getSystemConfig() {
-		Config config = configService.find();
-
-		// 钱箱最小最大存量
-		Cashbox min = cashboxService.findByTerminal(-1);
-		Cashbox max = cashboxService.findByTerminal(0);
-
-		// 座位
-		List<String> seats = new ArrayList<>();
-		List<Seat> seatList = seatService.findList();
-		if (CollectionUtils.isNotEmpty(seatList)) {
-			for (Seat seat : seatList) {
-				seats.add(seat.getName());
-			}
+		Terminal terminal = terminalService.find(terminalId);
+		if (terminal == null) {
+			jsonData.put(result, Feedback.ERROR.toString());
+			return SUCCESS;
 		}
 
-		jsonData.put("config", config);
-		jsonData.put("min", min);
-		jsonData.put("max", max);
-		jsonData.put("seats", seats);
+		Config config = configService.find();
+
+		switch (terminal.getType()) {
+		case SHOP:
+			// 钱箱最小最大存量
+			Cashbox min = cashboxService.findByTerminal(-1);
+			Cashbox max = cashboxService.findByTerminal(0);
+
+			// seat
+			List<String> seats = new ArrayList<>();
+			List<Seat> seatList = seatService.findList();
+			if (CollectionUtils.isNotEmpty(seatList)) {
+				for (Seat seat : seatList) {
+					seats.add(seat.getName());
+				}
+			}
+			jsonData.put("config", config);
+			jsonData.put("min", min);
+			jsonData.put("max", max);
+			jsonData.put("seats", seats);
+			break;
+		case KITCHEN:
+			// type
+			List<String> types = new ArrayList<>();
+			List<Type> typeList = typeService.findList();
+			if (CollectionUtils.isNotEmpty(typeList)) {
+				for (Type type : typeList) {
+					types.add(type.getName());
+				}
+			}
+			jsonData.put("config", config);
+			jsonData.put("types", types);
+			break;
+		}
+
 		jsonData.put(result, Feedback.SUCCESS.toString());
 		return SUCCESS;
 	}
@@ -295,7 +359,7 @@ public class ServiceAction extends CommonsAction {
 		return SUCCESS;
 	}
 
-	// 上传订单 TODO json??
+	// 上传订单 TODO
 	public String saveOrder() {
 		// OrderInfo orderInfo = new OrderInfo();
 		// orderInfo.setShop(shop);
@@ -458,24 +522,20 @@ public class ServiceAction extends CommonsAction {
 	public String updateActivitySend() {
 
 		JSONArray array = JSONArray.fromObject(params);
-		System.out.println(array);
 
 		for (int i = 0; i < array.size(); i++) {
 			JSONObject json = array.getJSONObject(i);
+			try {
+				Integer id = json.getInt("id");
+				int send = json.getInt("send");
 
-			String terminalId = json.getString("terminalId");
-			Integer foodId = json.getInt("foodId");
-			int send = json.getInt("send");
-
-			System.out.printf("%s %d %d\n", terminalId, foodId, send);
-
-			Terminal terminal = terminalService.find(terminalId);
-			if (terminal != null) {
-				Activity activity = activityService.find(terminal.getId(), foodId);
+				Activity activity = activityService.find(id);
 				if (activity != null) {
 					activity.setSend(send);
 					activityService.update(activity);
 				}
+			} catch (JSONException e) {
+				continue;
 			}
 
 		}
@@ -484,25 +544,75 @@ public class ServiceAction extends CommonsAction {
 		return SUCCESS;
 	}
 
-	// 更新现金数量: params={terminalId:'tno10004',nd100tw100:55,nv9tw100:83}
+	// 更新现金数量 TODO
+	// 参数1:params={terminalId:'tno10004',nd100tw100:55,nv9tw100:83}
+	// 参数2:terminalId=...&params=hopper/0.1-100,0.5-10.......;nd100/100-100;nv9/100-100?
 	public String updateCashbox() {
-		Terminal terminal = null;
-		JSONObject json = JSONObject.fromObject(params);
-		System.out.println(json);
-		// 验证终端
-		try {
-			terminalId = json.getString("terminalId");
-		} catch (JSONException e) {
-			jsonData.put("warning", "终端编号错误");
+		// method 1:
+		// Terminal terminal = null;
+		// //
+		// JSONObject json = JSONObject.fromObject(params);
+		// System.out.println(json);
+		// // 验证终端
+		// try {
+		// terminalId = json.getString("terminalId");
+		// } catch (JSONException e) {
+		// jsonData.put("warning", "终端编号错误");
+		// jsonData.put(result, Feedback.ERROR.toString());
+		// return SUCCESS;
+		// }
+		// terminal = terminalService.find(terminalId);
+		// if (terminal == null) {
+		// jsonData.put(result, Feedback.ERROR.toString());
+		// return SUCCESS;
+		// }
+		//
+		// // 读取配置
+		// Cashbox cashbox = cashboxService.findByTerminal(terminal.getId());
+		// if (cashbox == null) {
+		// cashbox = new Cashbox();
+		// cashbox.setTerminalId(terminal.getId());
+		// cashbox.setCreatetime(new Date());
+		// } else {
+		// cashbox.setUpdatetime(new Date());
+		// }
+		//
+		// // 更新
+		// Method[] methods = cashbox.getClass().getDeclaredMethods();
+		// for (Method method : methods) {
+		// String name = method.getName();
+		// if (name.matches("^set(Nd100|Nv9|Hopper)\\S+$")) {
+		// String key = FormatUtil.getField(name);
+		// int count = 0;
+		// try {
+		// count = json.getInt(key);
+		// } catch (JSONException e) {
+		// // e.printStackTrace();
+		// // jsonData.put("warning", key + "参数错误");
+		// continue;// 忽视?
+		// }
+		// System.out.printf("%s %d\n", key, count);
+		// try {
+		// method.invoke(cashbox, count);
+		// } catch (IllegalAccessException | IllegalArgumentException |
+		// InvocationTargetException e) {
+		// e.printStackTrace();
+		// jsonData.put(result, Feedback.ERROR.toString());
+		// return SUCCESS;
+		// }
+		// }
+		// }
+
+		// method 2:
+		if (StringUtils.isBlank(terminalId) || StringUtils.isBlank(params)) {
 			jsonData.put(result, Feedback.ERROR.toString());
 			return SUCCESS;
 		}
-		terminal = terminalService.find(terminalId);
+		Terminal terminal = terminalService.find(terminalId);
 		if (terminal == null) {
 			jsonData.put(result, Feedback.ERROR.toString());
 			return SUCCESS;
 		}
-
 		// 读取配置
 		Cashbox cashbox = cashboxService.findByTerminal(terminal.getId());
 		if (cashbox == null) {
@@ -512,32 +622,33 @@ public class ServiceAction extends CommonsAction {
 		} else {
 			cashbox.setUpdatetime(new Date());
 		}
+		// language
+		String language = "tw";
+		if (params.indexOf("nd100/10-") != -1 || params.indexOf("nv9/1-") != -1 || params.indexOf("hopper/0.1-") != -1) {
+			language = "cn";
+		}
+		// hopper/0.1-100,0.5-10.......;nd100/100-100;nv9/100-100?
+		String[] types = params.split(";");
+		for (String type : types) {
+			String[] machine_maps = type.split("/");
+			String machine = machine_maps[0] + language;
+			String[] maps = machine_maps[1].split(",");
+			for (String map : maps) {
+				String[] value_count = map.split("-");
+				String key = machine + value_count[0];
+				int count = Integer.parseInt(value_count[1]);
 
-		// 更新
-		Method[] methods = cashbox.getClass().getDeclaredMethods();
-		for (Method method : methods) {
-			String name = method.getName();
-			if (name.matches("^set(Nd100|Nv9|Hopper)\\S+$")) {
-				String key = FormatUtil.getField(name);
-				int count = 0;
+				String methodName = FormatUtil.getMethod(key, "set");
 				try {
-					count = json.getInt(key);
-				} catch (JSONException e) {
-					// e.printStackTrace();
-					// jsonData.put("warning", key + "参数错误");
-					continue;// 忽视?
-				}
-				System.out.printf("%s %d\n", key, count);
-				try {
+					Method method = Cashbox.class.getMethod(methodName, int.class);
 					method.invoke(cashbox, count);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
-					jsonData.put(result, Feedback.ERROR.toString());
-					return SUCCESS;
 				}
 			}
 		}
 
+		// 更新
 		cashboxService.merge(cashbox);
 		jsonData.put(result, Feedback.SUCCESS.toString());
 		return SUCCESS;

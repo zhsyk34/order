@@ -32,7 +32,7 @@ public class OauthInterceptor extends AbstractInterceptor {
 		String actionName = context.getName();
 		System.out.println("访问地址:" + actionName);
 		if (actionName.matches("^(User_logon|Service_\\S+)*")) {
-			System.out.println("logon action,pass");
+			// System.out.println("logon action,pass");
 			return invocation.invoke();
 		}
 
@@ -42,19 +42,19 @@ public class OauthInterceptor extends AbstractInterceptor {
 		if (user != null) {
 			return invocation.invoke();
 		}
-		System.out.println("未登录");
+		// System.out.println("未登录");
 
 		// check type
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
 		String type = request.getHeader("X-Requested-With");
 		if ("XMLHttpRequest".equalsIgnoreCase(type)) {
-			System.out.println("ajax visit");
+			// System.out.println("ajax visit");
 			response.setHeader("sessionstatus", "timeout");
 			response.sendError(518, "session timeout.");
 			return null;
 		} else {
-			System.out.println("action redirect");
+			// System.out.println("action redirect");
 			return "logon";
 		}
 	}

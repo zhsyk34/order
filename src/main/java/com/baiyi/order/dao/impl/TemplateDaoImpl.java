@@ -101,7 +101,7 @@ public class TemplateDaoImpl extends CommonsDaoImpl<Template> implements Templat
 			e.printStackTrace();
 		}
 
-		// foodVO
+		// foodVO TODO
 		StringBuffer queryString = new StringBuffer("select food.*, type.name as typeName, material.path");
 		queryString.append(" from Food as food left join Type as type on food.typeId = type.id");
 		queryString.append(" left join Material as material on food.materialId = material.id");

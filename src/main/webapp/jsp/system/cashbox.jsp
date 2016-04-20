@@ -39,7 +39,7 @@
 				<!-- nd100:cn -->
 				<tr class="nd100 cn">
 					<th><s:text name="cashbox-vomit" /></th>
-					<th>5</th>
+					<th>10</th>
 					<th><input class="text" id="nd100cn10Min"></th>
 					<th><input class="text" value="600" readonly></th>
 				</tr>

@@ -56,6 +56,7 @@ public class CashboxAction extends CommonsAction {
 		return SUCCESS;
 	}
 
+	// 系统配置
 	public String find() {
 		Cashbox min = cashboxService.findByTerminal(-1);
 		Cashbox max = cashboxService.findByTerminal(0);
@@ -116,6 +117,20 @@ public class CashboxAction extends CommonsAction {
 		return SUCCESS;
 	}
 
+	// 终端数据
+	public String query() {
+		Cashbox min = cashboxService.findByTerminal(-1);
+		Cashbox max = cashboxService.findByTerminal(0);
+		Cashbox target = cashboxService.findByTerminal(terminalId);
+		jsonData.put("min", min);
+		jsonData.put("max", max);
+		jsonData.put("target", target);
+		jsonData.put(result, Feedback.SUCCESS.toString());
+		return SUCCESS;
+	}
+
+	private Integer terminalId;
+
 	/* 找钞 */
 	private int nd100tw100Min;
 	private int nd100tw100Max;
@@ -158,6 +173,14 @@ public class CashboxAction extends CommonsAction {
 	private int hoppercn05Max;
 	private int hoppercn1Min;
 	private int hoppercn1Max;
+
+	public Integer getTerminalId() {
+		return terminalId;
+	}
+
+	public void setTerminalId(Integer terminalId) {
+		this.terminalId = terminalId;
+	}
 
 	public int getNd100tw100Min() {
 		return nd100tw100Min;

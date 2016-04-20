@@ -41,7 +41,11 @@ require([ "jquery", "modal", "page", "progress", "checkctrl", "crud", "intercept
 			width : 650,
 			top : 100,
 			title : $.message("remote-template"),
-			buttons : null
+			buttons : null,
+			after : function() {
+				clearInterval(timer);
+				timer = null;
+			}
 		});
 
 		$("#data").on("click", ".update", function() {
@@ -86,7 +90,7 @@ require([ "jquery", "modal", "page", "progress", "checkctrl", "crud", "intercept
 		function loadTemplate() {
 			clearInterval(timer);
 			loadProgress();
-			timer = setInterval(loadProgress, 5 * 1000);
+			timer = setInterval(loadProgress, 1 * 1000);
 		}
 
 		function loadProgress() {

@@ -108,6 +108,6 @@ public class FormatUtil {
 	}
 
 	public static String getMethod(String filed, String type) {
-		return type + Character.toUpperCase(filed.charAt(1)) + filed.substring(1);
+		return type + Character.toUpperCase(filed.charAt(0)) + filed.substring(1);
 	}
 }

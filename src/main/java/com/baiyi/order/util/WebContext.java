@@ -1,6 +1,7 @@
 package com.baiyi.order.util;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
+import com.baiyi.order.model.Terminal;
 import com.baiyi.order.model.User;
 import com.baiyi.order.service.TerminalService;
 import com.baiyi.order.service.UserService;
@@ -59,7 +61,6 @@ public class WebContext implements ServletContextAware, InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		// OS
 		os = System.getProperty("os.name");
-		System.out.println(os);
 		if (os.toLowerCase().startsWith("windows")) {
 			os = "windows";
 		} else if (os.toLowerCase().startsWith("linux")) {
@@ -73,7 +74,6 @@ public class WebContext implements ServletContextAware, InitializingBean {
 
 		// classRootPath = rootPath + "WEB-INF" + File.separator + "classes";
 		classRootPath = this.getClass().getClassLoader().getResource("").getFile();
-		System.out.println("webRootPath: " + webRootPath + " ,classRootPath: " + classRootPath);
 
 		// read prop
 		Configuration config = new PropertiesConfiguration("config.properties");
@@ -82,9 +82,6 @@ public class WebContext implements ServletContextAware, InitializingBean {
 		serverid = config.getString("serverid");
 		servletContext.setAttribute("version", version);
 		servletContext.setAttribute("serverid", serverid);
-		System.out.println("mirror: " + mirror);
-		System.out.println("version: " + version);
-		System.out.println("serverid: " + serverid);
 
 		// empower
 		Thread authorize = new Thread(new Authorize());
@@ -100,17 +97,17 @@ public class WebContext implements ServletContextAware, InitializingBean {
 		}
 
 		// TODO:测试
-		// Record record = new Record();
-		// Terminal t = terminalService.find(1);
-		// record.setTerminalId(t.getId());
-		// record.setTerminalNo(t.getTerminalNo());
-		// record.setLocation(t.getLocation());
-		// record.setIp("127.0.0.1");
-		// record.setOnline(true);
-		// record.setImage("abc");
-		// record.setDate(new Date());
+		Record record = new Record();
+		Terminal t = terminalService.find(2);
+		record.setTerminalId(t.getId());
+		record.setTerminalNo(t.getTerminalNo());
+		record.setLocation(t.getLocation());
+		record.setIp("127.0.0.1");
+		record.setOnline(true);
+		record.setImage("abc");
+		record.setDate(new Date());
 
-		// WebContext.ConnectMap.put(t.getTerminalNo(), record);
+		WebContext.ConnectMap.put(t.getTerminalNo(), record);
 	}
 
 	private ServletContext servletContext;

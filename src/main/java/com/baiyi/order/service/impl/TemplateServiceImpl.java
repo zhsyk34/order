@@ -274,7 +274,7 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Override
-	public boolean relate(Integer id) {// TODO CHECK
+	public boolean relate(Integer id) {
 		List<TerminalTemplate> list = terminalTemplateDao.findList(null, id, null, null, null);
 		return CollectionUtils.isNotEmpty(list);
 	}

@@ -92,8 +92,10 @@
 				if (options.blur) {
 					$("body>.blur").removeClass("blur");
 				}
+				// always check close?
+				options.after.call(target);
 				if (!direct) {
-					options.after.call(target);
+					// options.after.call(target);
 				}
 			}
 		},

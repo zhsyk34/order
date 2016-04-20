@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Config {// TODO terminalId?
+public class Config {
 
 	private Integer id;
 

@@ -33,6 +33,7 @@
 	width:200px;
 	height: 100%;
 	*/
+	
 }
 
 .description {
@@ -42,6 +43,20 @@
 .description>div {
 	padding: 6px 5px;
 	color: #fff;
+	font-weight: 600;
+}
+
+.tw td, .cn td {
+	text-align: center;
+}
+
+.above {
+	color: #f00;
+	font-weight: 600;
+}
+
+.under {
+	color: #0B8C37;
 	font-weight: 600;
 }
 
