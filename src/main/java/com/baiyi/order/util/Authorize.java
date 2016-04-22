@@ -8,6 +8,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
+import com.baiyi.order.web.WebContext;
+
 import net.sf.json.JSONObject;
 
 public class Authorize implements Runnable {

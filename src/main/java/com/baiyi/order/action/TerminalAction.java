@@ -13,10 +13,10 @@ import com.baiyi.order.util.EnumList.TerminalTypeEnum;
 import com.baiyi.order.util.Feedback;
 import com.baiyi.order.util.FormatUtil;
 import com.baiyi.order.util.ValidateUtil;
-import com.baiyi.order.util.WebContext;
 import com.baiyi.order.vo.Record;
 import com.baiyi.order.vo.TerminalTemplateVO;
 import com.baiyi.order.vo.TerminalVO;
+import com.baiyi.order.web.WebContext;
 
 @SuppressWarnings("serial")
 public class TerminalAction extends CommonsAction {

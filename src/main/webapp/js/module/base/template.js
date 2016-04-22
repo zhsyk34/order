@@ -530,7 +530,7 @@ require([ "jquery", "modal", "page", "checkctrl", "crud", "intercept", "tool", "
 				var str = "<div><div class='marquee-context'></div><div class='close'></div></div>";
 				$.each(data, function(index, id) {
 					var div = $(str).data("data", id);
-					div.find(".marquee-context").text(marquees[id].content);
+					div.find(".marquee-context").text(marquees[id].title);
 					thumbnail.append(div);
 				});
 			}
@@ -547,7 +547,7 @@ require([ "jquery", "modal", "page", "checkctrl", "crud", "intercept", "tool", "
 			loadData();
 		});
 
-		$(".dialog-main").on("change", ":checkbox,:radio", function() {
+		$(".dialog-main").on("click", ":checkbox,:radio", function() {
 			var dom = $(this).parents(".dialog-main").parent();
 			var target = dom.data("target");
 

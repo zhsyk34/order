@@ -13,36 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.baiyi.order.util.WebContext;
-
-//截图上传?
+//截图上传
 @SuppressWarnings("serial")
-public class UploadFileServlet extends HttpServlet {
+public class UploadCaptureServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("get method");
+		out.println("can't upload file by get method");
 		out.flush();
 		out.close();
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tempStr = WebContext.webRootPath + WebContext.TEMP;
-		File tempFile = new File(tempStr);
+		File tempFile = new File(WebContext.webRootPath + WebContext.TEMP);
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
 		}
 
 		String captureStr = WebContext.webRootPath + WebContext.CAPTURE;
-		File uploadFile = new File(captureStr);
-		if (!uploadFile.exists()) {
-			uploadFile.mkdirs();
-		}
+		// File uploadFile = new File(captureStr);
+		// if (!uploadFile.exists()) {
+		// uploadFile.mkdirs();
+		// }
 
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -57,23 +53,23 @@ public class UploadFileServlet extends HttpServlet {
 				if (item.isFormField()) {// 普通的表单域
 					continue;
 				}
-
 				String name = item.getName();
 				if (StringUtils.isBlank(name)) {
 					continue;
 				}
-				// TODO 最终路径
+
 				String dest = captureStr + File.separator + name.replace("_min", "");
 
-				File temp = new File(dest);
-				if (temp.exists() && temp.isFile()) {
-					temp.delete();
+				File original = new File(dest);// 原有截图
+				if (original.exists() && original.isFile()) {
+					original.delete();
 				}
 
-				File srcFile = new File(captureStr + File.separator + name);
-				item.write(srcFile);
-				File destFile = new File(dest);
-				FileUtils.copyFile(srcFile, destFile);
+				item.write(new File(dest));
+				// File srcFile = new File(captureStr + File.separator + name);
+				// item.write(srcFile);
+				// File destFile = new File(dest);
+				// FileUtils.copyFile(srcFile, destFile);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

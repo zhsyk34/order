@@ -165,7 +165,6 @@
 							<s:text name="select" />
 						</button></th>
 					<td>
-						<div class="comment">选择多则跑马灯时,相关设定(背景、字体等)以第一则为主</div>
 						<div class="thumbnail"></div>
 					</td>
 				</tr>

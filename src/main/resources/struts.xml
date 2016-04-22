@@ -7,7 +7,7 @@
 	<constant name="struts.devMode" value="true" />
 
 	<!-- TODO -->
-	<constant name="struts.action.excludePattern" value=".*\\.jpg" />
+	<constant name="struts.action.excludePattern" value="/servlet/.*" />
 
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<constant name="struts.custom.i18n.resources" value="message" />

@@ -17,7 +17,7 @@ import com.baiyi.order.util.Feedback;
 import com.baiyi.order.util.FormatUtil;
 import com.baiyi.order.util.ValidateUtil;
 import com.baiyi.order.util.VideoConvertUtil;
-import com.baiyi.order.util.WebContext;
+import com.baiyi.order.web.WebContext;
 
 @SuppressWarnings("serial")
 public class MaterialAction extends CommonsAction {
@@ -36,8 +36,6 @@ public class MaterialAction extends CommonsAction {
 			}
 		}
 
-		// ServletContext servletContext =
-		// ServletActionContext.getServletContext();
 		String rootPath = WebContext.webRootPath;
 		String saveDir = WebContext.UPLOAD;// 存放上传文件目录
 

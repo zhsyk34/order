@@ -96,6 +96,9 @@ require([ "jquery", "modal", "page", "form", "checkctrl", "crud", "intercept", "
 			top : 100,
 			before : function() {
 				return upload();
+			},
+			reset : function() {
+				$(".clean").trigger("click");
 			}
 		});
 		$("#add").on("click", function() {

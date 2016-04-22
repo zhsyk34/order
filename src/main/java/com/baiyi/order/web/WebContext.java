@@ -1,4 +1,4 @@
-package com.baiyi.order.util;
+package com.baiyi.order.web;
 
 import java.io.File;
 import java.util.Date;
@@ -18,6 +18,8 @@ import com.baiyi.order.model.Terminal;
 import com.baiyi.order.model.User;
 import com.baiyi.order.service.TerminalService;
 import com.baiyi.order.service.UserService;
+import com.baiyi.order.util.Authorize;
+import com.baiyi.order.util.DESPlus;
 import com.baiyi.order.vo.Record;
 
 @Component
@@ -30,11 +32,12 @@ public class WebContext implements ServletContextAware, InitializingBean {
 	private TerminalService terminalService;
 
 	/* 系统配置 */
-	public final static String UPLOAD = "upload";// 上传素材目录
 	public final static String FFMPEG = "tool" + File.separator + "convert" + File.separator + "ffmpeg.exe";// ffmpeg
 	public final static String MENCODER = "tool" + File.separator + "convert" + File.separator + "mencoder.exe";// mencoder
+
+	public final static String UPLOAD = "upload";// 上传素材目录
 	public final static String CAPTURE = "capture";// 上传截图路径
-	public final static String TEMP = "temp";// 临时目录
+	public final static String TEMP = CAPTURE + File.separator + "temp";// 在截图目录中创建临时目录
 
 	/* 初始化数据 */
 	public static String os;// 系统

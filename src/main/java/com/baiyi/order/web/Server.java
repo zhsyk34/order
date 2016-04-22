@@ -18,9 +18,9 @@ import com.baiyi.order.model.Terminal;
 import com.baiyi.order.model.TerminalConnect;
 import com.baiyi.order.service.TerminalService;
 import com.baiyi.order.util.FormatUtil;
-import com.baiyi.order.util.WebContext;
 import com.baiyi.order.vo.Record;
 
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 //serversocket线程:主要用于监测终端连线,更新终端时间,发送开关机指令...
@@ -122,10 +122,14 @@ class Contact implements Runnable {
 				ip = client.getInetAddress().getHostAddress();
 				// {terminalNo:terminalNo,image:image}// TODO
 				String data = ois.readUTF();
-				JSONObject info = JSONObject.fromObject(data);
 
-				terminalNo = (String) info.get("terminalNo");
-				image = (String) info.get("image");
+				try {
+					JSONObject info = JSONObject.fromObject(data);
+					terminalNo = (String) info.get("terminalNo");
+					image = WebContext.CAPTURE + (String) info.get("image");
+				} catch (JSONException e) {
+				}
+
 				if (StringUtils.isNotBlank(terminalNo) || StringUtils.isNotBlank(image)) {
 					Terminal terminal = terminalService.find(terminalNo);
 					if (terminal != null) {
@@ -154,12 +158,10 @@ class Contact implements Runnable {
 					} else {
 						System.out.println("错误的终端...");
 					}
-
 				} else {
 					send = true;
 					oos.writeObject("1||" + FREQUENCY);
 					oos.flush();
-
 				}
 
 				/* ------------远程管理 ---------------- */

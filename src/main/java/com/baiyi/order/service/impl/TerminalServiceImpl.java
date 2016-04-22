@@ -36,10 +36,10 @@ import com.baiyi.order.util.EnumList.TemplateDownEnum;
 import com.baiyi.order.util.EnumList.TerminalTypeEnum;
 import com.baiyi.order.util.FormatUtil;
 import com.baiyi.order.util.ValidateUtil;
-import com.baiyi.order.util.WebContext;
 import com.baiyi.order.vo.Record;
 import com.baiyi.order.vo.TerminalTemplateVO;
 import com.baiyi.order.vo.TerminalVO;
+import com.baiyi.order.web.WebContext;
 
 @Service
 public class TerminalServiceImpl implements TerminalService {// TODO
